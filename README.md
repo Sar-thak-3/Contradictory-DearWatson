@@ -1,7 +1,7 @@
 #  <div align="center"> Contradictory-My Dear Watson </div>
 
 # About
-This project is a part of Kaggle Challenge <a href="https://www.kaggle.com/c/contradictory-my-dear-watson">Contradictory - My Dear Watson</a> in which I classified a phrase into 3 classed on the basis of its context. Classes:-
+This project is a part of Kaggle Challenge <a href="https://www.kaggle.com/c/contradictory-my-dear-watson">Contradictory - My Dear Watson</a> in which I classified a phrase into 3 classes on the basis of its context. Classes:-
 1. Neutral
 2. Entailment
 3. Contradictory
@@ -25,26 +25,23 @@ This project is a part of Kaggle Challenge <a href="https://www.kaggle.com/c/con
 
 # Model Structure
 <pre>
-(Image)                                (NLP)
-Input (2048)                          Input (30)
-  |                                      |
-  |                                      |
-Dropout (0.3)                        Embedding (input_dim=2574, ouput_dim=50)
-  |                                      |
-  |                                      |
-Dense (256)                           Dropout (0.3)
-  |                                      |
-  |                                      |
-  |                                     LSTM (256)
-  |________________       _______________|
-                   |     |
-                   |     |
-                   Add (256 x 2)
-                     |
-                     |
-                   Dense (256)
-                     |
-                     |
-                   Dense (2574)
-                  (output)
+(NLP)                                                      (NLP)
+Input (456,50)                                            Input (34,50)
+  |                                                        |
+  |                                                        |
+LSTM (output_dim = 256,512)                          LSTM (ouput_dim=256,512)
+  |                                                        |
+  |                                                        |
+Flatten                                                 Flatten
+  |_________________________      __________________________|
+                           |     |
+                           |     |
+                        Cosine Similarity
+                             |
+                             |
+                           Dense
+                             |
+                             |
+                           Dense (3)
+                          (output)
 </pre>
